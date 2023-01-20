@@ -112,7 +112,7 @@ set(BIN_FILE ${build_dir}/${proj_name}.bin)
 set(MAP_FILE ${build_dir}/${proj_name}.map)
 set(ASM_FILE ${build_dir}/${proj_name}.asm)
 
-add_executable(${proj_name}.elf main.c ${BL_SDK_BASE}/bsp/board/${BOARD}/board.c)
+add_executable(${proj_name}.elf main.c ${BL_SDK_BASE}/${BOARD}/board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
 if(EXISTS ${LINKER_SCRIPT_PROPERTY})
@@ -121,7 +121,6 @@ if(EXISTS ${LINKER_SCRIPT_PROPERTY})
 endif()
 
 get_property(SDK_LIBS_PROPERTY GLOBAL PROPERTY SDK_LIBS)
-message("${SDK_LIBS_PROPERTY} {SDK_LIBS_PROPERTY}")
 target_link_libraries(${proj_name}.elf -Wl,--start-group ${SDK_LIBS_PROPERTY} -Wl,--end-group)
 
 add_custom_command(TARGET ${proj_name}.elf POST_BUILD
