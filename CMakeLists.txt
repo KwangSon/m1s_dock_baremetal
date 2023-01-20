@@ -38,7 +38,7 @@ target_compile_options(sdk_intf_lib INTERFACE -O2)
 
 enable_language(C ASM)
 
-set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/${BOARD}/bl808_flash_${CPU_ID}.ld)
+set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/bl808_flash_${CPU_ID}.ld)
 
 add_library(utils STATIC
 utils/libc/vsnprintf.c
@@ -64,8 +64,7 @@ set(BIN_FILE ${build_dir}/${proj_name}.bin)
 set(MAP_FILE ${build_dir}/${proj_name}.map)
 set(ASM_FILE ${build_dir}/${proj_name}.asm)
 
-add_executable(${proj_name}.elf main.c ${BOARD}/board.c)
-target_include_directories(${proj_name}.elf PUBLIC ${BOARD})
+add_executable(${proj_name}.elf main.c board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
 if(EXISTS ${LINKER_SCRIPT_PROPERTY})
