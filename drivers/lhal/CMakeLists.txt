@@ -81,6 +81,3 @@ if(CPU_ID)
 string(TOUPPER ${CPU_ID} CPU_ID_NAME)
 sdk_add_compile_definitions(-DCPU_${CPU_ID_NAME})
 endif()
-
-sdk_add_static_library(src/pka/libpka.a)
-#add_subdirectory(src/pka)
