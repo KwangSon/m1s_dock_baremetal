@@ -14,7 +14,6 @@ add_library(sdk_intf_lib INTERFACE)
 add_library(app STATIC ${BL_SDK_BASE}/bsp/board/${BOARD}/board.c)
 target_link_libraries(app sdk_intf_lib)
 
-include(${BL_SDK_BASE}/cmake/toolchain.cmake)
 include(${BL_SDK_BASE}/cmake/extension.cmake)
 include(${BL_SDK_BASE}/cmake/compiler_flags.cmake)
 
