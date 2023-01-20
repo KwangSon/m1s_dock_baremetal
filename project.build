@@ -7,7 +7,7 @@ endif
 ifeq ($(OS),Windows_NT)
 CMAKE = $(BL_SDK_BASE)/tools/cmake/bin/cmake.exe
 else
-CMAKE = $(BL_SDK_BASE)/tools/cmake/bin/cmake
+CMAKE = /usr/bin/cmake
 endif
 
 # The command to remove a file.
