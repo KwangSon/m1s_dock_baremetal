@@ -4,32 +4,6 @@ set(build_dir build_out)
 
 add_library(sdk_intf_lib INTERFACE)
 
-function(sdk_library_add_sources)
-  foreach(arg ${ARGV})
-    if(IS_DIRECTORY ${arg})
-    message(FATAL_ERROR "sdk_library_add_sources() was called on a directory")
-    endif()
-
-    if(IS_ABSOLUTE ${arg})
-    set(path ${arg})
-    else()
-    set(path ${CMAKE_CURRENT_SOURCE_DIR}/${arg})
-    endif()
-    target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE ${path})
-  endforeach()
-endfunction()
-
-function(sdk_add_include_directories)
-  foreach(arg ${ARGV})
-    if(IS_ABSOLUTE ${arg})
-      set(path ${arg})
-    else()
-      set(path ${CMAKE_CURRENT_SOURCE_DIR}/${arg})
-    endif()
-    target_include_directories(sdk_intf_lib INTERFACE ${path})
-  endforeach()
-endfunction()
-
 target_link_options(sdk_intf_lib INTERFACE -Wl,--gc-sections)
 
 target_link_libraries(sdk_intf_lib INTERFACE c m)
