@@ -1,8 +1,0 @@
-﻿sdk_generate_library()
-sdk_library_add_sources(diskio.c)
-sdk_library_add_sources(ff.c)
-sdk_library_add_sources(ffsystem.c)
-sdk_library_add_sources(ffunicode.c)
-sdk_library_add_sources(diskio.c)
-sdk_add_include_directories(.)
-sdk_add_compile_definitions(-DCONFIG_FATFS)
