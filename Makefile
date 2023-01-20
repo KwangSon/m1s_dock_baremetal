@@ -1,18 +1,10 @@
-SDK_DEMO_PATH ?= .
-BL_SDK_BASE ?= $(SDK_DEMO_PATH)/../..
+BL_SDK_BASE ?= ../..
 
 export BL_SDK_BASE
 
 CHIP ?= bl808
 BOARD ?= bl808dk
 CROSS_COMPILE ?= riscv64-unknown-elf-
-
-# avoid 'Entering|Leaving directory' messages
-ifndef VERBOSE
-MAKEFLAGS += --no-print-directory
-endif
-
-RM = $(CMAKE) -E remove_directory
 
 CPU_ID ?= m0
 CONFIG_USB_HS ?=y
@@ -30,13 +22,8 @@ cmake_definition+= -DCONFIG_USB_HS=$(CONFIG_USB_HS)
 cmake_definition+= -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 build:Makefile
-	cmake -S . -B build -G "Unix Makefiles" $(cmake_definition)
-	cd build && make -j4
+	cd examples/helloworld/ && cmake -S . -B build -G "Unix Makefiles" $(cmake_definition)
+	cd examples/helloworld/build && make -j4
 
 clean:
-	$(RM) build
-
-menuconfig:
-	python ../../tools/kconfig/menuconfig.py
-
-.PHONY:build clean menuconfig
+	rm -rf examples/helloworld/build
