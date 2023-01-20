@@ -10,23 +10,6 @@ set(build_dir build_out)
 
 add_library(sdk_intf_lib INTERFACE)
 
-macro(sdk_generate_library)
-  if(${ARGC})
-  foreach(var ${ARGN})
-    set(library_name ${var})
-  endforeach()
-  else()
-  get_filename_component(library_name ${CMAKE_CURRENT_LIST_DIR} NAME)
-  endif()
-
-  message(STATUS "[register library : ${library_name}], path:${CMAKE_CURRENT_LIST_DIR}")
-
-  set(CURRENT_STATIC_LIBRARY ${library_name})
-  add_library(${library_name} STATIC)
-  set_property(GLOBAL APPEND PROPERTY SDK_LIBS ${library_name})
-  target_link_libraries(${library_name} PUBLIC sdk_intf_lib)
-endmacro()
-
 function(sdk_library_add_sources)
   foreach(arg ${ARGV})
     if(IS_DIRECTORY ${arg})

@@ -1,4 +1,11 @@
-sdk_generate_library()
+get_filename_component(library_name ${CMAKE_CURRENT_LIST_DIR} NAME)
+
+message(STATUS "[register library : ${library_name}], path:${CMAKE_CURRENT_LIST_DIR}")
+
+set(CURRENT_STATIC_LIBRARY ${library_name})
+add_library(${library_name} STATIC)
+set_property(GLOBAL APPEND PROPERTY SDK_LIBS ${library_name})
+target_link_libraries(${library_name} PUBLIC sdk_intf_lib)
 
 sdk_library_add_sources(startup/${CPU_ID}/start.S)
 sdk_library_add_sources(startup/${CPU_ID}/vector.S)

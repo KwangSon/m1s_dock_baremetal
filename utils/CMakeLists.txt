@@ -1,13 +1,14 @@
-sdk_generate_library()
+set(CURRENT_STATIC_LIBRARY utils)
+add_library(utils STATIC
+libc/vsnprintf.c
+libc/syscalls.c
+libc/printf.c
+mmheap/mmheap.c
+soft_crc/soft_crc.c
+)
+set_property(GLOBAL APPEND PROPERTY SDK_LIBS utils)
+target_link_libraries(utils PUBLIC sdk_intf_lib)
 
-sdk_library_add_sources(libc/vsnprintf.c)
-sdk_library_add_sources(libc/syscalls.c)
-sdk_library_add_sources(libc/printf.c)
 
-# memheap
-sdk_library_add_sources(mmheap/mmheap.c)
 sdk_add_include_directories(mmheap)
-
-# soft crc
-sdk_library_add_sources(soft_crc/soft_crc.c)
 sdk_add_include_directories(soft_crc)
