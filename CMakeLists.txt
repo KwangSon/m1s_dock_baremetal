@@ -44,7 +44,7 @@ target_compile_options(sdk_intf_lib INTERFACE -O2)
 
 enable_language(C ASM)
 
-set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../${BOARD}/bl808_flash_${CPU_ID}.ld)
+set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/${BOARD}/bl808_flash_${CPU_ID}.ld)
 
 add_library(utils STATIC
 utils/libc/vsnprintf.c
@@ -60,7 +60,7 @@ target_link_libraries(utils PUBLIC sdk_intf_lib)
 target_include_directories(sdk_intf_lib INTERFACE utils/mmheap)
 target_include_directories(sdk_intf_lib INTERFACE utils/soft_crc)
 
-add_subdirectory(../drivers ${build_dir})
+add_subdirectory(drivers ${build_dir})
 
 set(proj_name hello_${CHIP}_${CPU_ID})
 

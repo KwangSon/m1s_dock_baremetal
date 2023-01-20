@@ -1,4 +1,4 @@
-BL_SDK_BASE ?= ..
+BL_SDK_BASE ?= .
 
 export BL_SDK_BASE
 
@@ -18,8 +18,7 @@ cmake_definition+= -DCONFIG_USB_HS=$(CONFIG_USB_HS)
 cmake_definition+= -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 build:Makefile
-	cd examples/ && \
-	CC=riscv64-unknown-elf-gcc cmake -S . -B ../build -G "Unix Makefiles" $(cmake_definition)
+	CC=riscv64-unknown-elf-gcc cmake -S . -B build -G "Unix Makefiles" $(cmake_definition)
 	cd build && make -j4
 
 clean:
