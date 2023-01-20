@@ -61,7 +61,7 @@ target_compile_options(sdk_intf_lib INTERFACE -O2)
 
 enable_language(C ASM)
 
-set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../../${BOARD}/bl808_flash_${CPU_ID}.ld)
+set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../${BOARD}/bl808_flash_${CPU_ID}.ld)
 
 add_subdirectory(${BL_SDK_BASE} ${build_dir})
 
