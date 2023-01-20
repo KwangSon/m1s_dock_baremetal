@@ -46,6 +46,20 @@ enable_language(C ASM)
 
 set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../${BOARD}/bl808_flash_${CPU_ID}.ld)
 
+add_library(utils STATIC
+utils/libc/vsnprintf.c
+utils/libc/syscalls.c
+utils/libc/printf.c
+utils/mmheap/mmheap.c
+utils/soft_crc/soft_crc.c
+)
+set_property(GLOBAL APPEND PROPERTY SDK_LIBS utils)
+target_link_libraries(utils PUBLIC sdk_intf_lib)
+
+
+target_include_directories(sdk_intf_lib INTERFACE utils/mmheap)
+target_include_directories(sdk_intf_lib INTERFACE utils/soft_crc)
+
 add_subdirectory(${BL_SDK_BASE} ${build_dir})
 
 set(proj_name hello_${CHIP}_${CPU_ID})
