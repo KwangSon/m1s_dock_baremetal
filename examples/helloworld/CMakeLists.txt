@@ -53,18 +53,6 @@ function(sdk_add_include_directories)
   endforeach()
 endfunction()
 
-function(sdk_add_compile_definitions)
-  target_compile_definitions(sdk_intf_lib INTERFACE ${ARGV})
-endfunction()
-
-function(sdk_add_compile_options)
-  target_compile_options(sdk_intf_lib INTERFACE ${ARGV})
-endfunction()
-
-function(sdk_add_link_options)
-  target_link_options(sdk_intf_lib INTERFACE ${ARGV})
-endfunction()
-
 function(sdk_set_linker_script ld)
   if(IS_ABSOLUTE ${ld})
   set(path ${ld})
@@ -74,31 +62,11 @@ function(sdk_set_linker_script ld)
   set_property(GLOBAL PROPERTY LINKER_SCRIPT ${path})
 endfunction()
 
-function(sdk_add_static_library)
-  foreach(arg ${ARGV})
-  if(IS_DIRECTORY ${arg})
-  message(FATAL_ERROR "sdk_add_static_library() was called on a directory")
-  endif()
-
-  if(IS_ABSOLUTE ${arg})
-  set(path ${arg})
-  else()
-  set(path ${CMAKE_CURRENT_SOURCE_DIR}/${arg})
-  endif()
-  get_filename_component(library_name ${path} NAME_WE)
-  message(STATUS "[register extern library : ${library_name}], path:${CMAKE_CURRENT_LIST_DIR}")
-  set_property(GLOBAL APPEND PROPERTY SDK_LIBS ${path})
-  endforeach()
-endfunction()
-
-
-sdk_add_link_options(
--Wl,--gc-sections
-)
+target_link_options(sdk_intf_lib INTERFACE -Wl,--gc-sections)
 
 target_link_libraries(sdk_intf_lib INTERFACE c m)
 
-sdk_add_compile_options(-O2)
+target_compile_options(sdk_intf_lib INTERFACE -O2)
 
 enable_language(C ASM)
 

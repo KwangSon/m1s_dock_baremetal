@@ -53,9 +53,9 @@ sdk_library_add_sources(include/arch/risc-v/t-head/rv_pmp.c)
 sdk_library_add_sources(config/${CHIP}/device_table.c)
 
 string(TOUPPER ${CHIP} CHIPNAME)
-sdk_add_compile_definitions(-D${CHIPNAME})
+target_compile_definitions(sdk_intf_lib INTERFACE -D${CHIPNAME})
 
 if(CPU_ID)
 string(TOUPPER ${CPU_ID} CPU_ID_NAME)
-sdk_add_compile_definitions(-DCPU_${CPU_ID_NAME})
+target_compile_definitions(sdk_intf_lib INTERFACE -DCPU_${CPU_ID_NAME})
 endif()

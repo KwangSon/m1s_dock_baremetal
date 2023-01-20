@@ -49,8 +49,8 @@ SET(MARCH "rv32emcxtheadse")
 SET(MABI "ilp32e")
 endif()
 
-sdk_add_compile_definitions(-DARCH_RISCV -DBFLB_USE_HAL_DRIVER)
-sdk_add_compile_options(-march=${MARCH} -mabi=${MABI} -mtune=${MCPU})
-sdk_add_link_options(-march=${MARCH} -mabi=${MABI} -mtune=${MCPU})
+target_compile_definitions(sdk_intf_lib INTERFACE -DARCH_RISCV -DBFLB_USE_HAL_DRIVER)
+target_compile_options(sdk_intf_lib INTERFACE -march=${MARCH} -mabi=${MABI} -mtune=${MCPU})
+target_link_options(sdk_intf_lib INTERFACE -march=${MARCH} -mabi=${MABI} -mtune=${MCPU})
 
-sdk_add_compile_definitions(-DCONFIG_IRQ_NUM=80)
+target_compile_definitions(sdk_intf_lib INTERFACE -DCONFIG_IRQ_NUM=80)
