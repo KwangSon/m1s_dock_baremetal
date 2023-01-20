@@ -1,11 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-if(NOT DEFINED ENV{BL_SDK_BASE})
-    message( "please set BL_SDK_BASE in your system environment")
-endif()
-
-set(BL_SDK_BASE $ENV{BL_SDK_BASE})
-
 set(build_dir build_out)
 
 add_library(sdk_intf_lib INTERFACE)
@@ -70,8 +64,8 @@ set(BIN_FILE ${build_dir}/${proj_name}.bin)
 set(MAP_FILE ${build_dir}/${proj_name}.map)
 set(ASM_FILE ${build_dir}/${proj_name}.asm)
 
-add_executable(${proj_name}.elf main.c ${BL_SDK_BASE}/${BOARD}/board.c)
-target_include_directories(${proj_name}.elf PUBLIC ${BL_SDK_BASE}/${BOARD})
+add_executable(${proj_name}.elf main.c ${BOARD}/board.c)
+target_include_directories(${proj_name}.elf PUBLIC ${BOARD})
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
 if(EXISTS ${LINKER_SCRIPT_PROPERTY})

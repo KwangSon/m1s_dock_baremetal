@@ -1,7 +1,3 @@
-BL_SDK_BASE ?= .
-
-export BL_SDK_BASE
-
 CHIP ?= bl808
 BOARD ?= bl808dk
 
