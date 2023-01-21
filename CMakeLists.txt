@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 
+enable_language(C ASM)
+set(proj_name hello_${CHIP}_${CPU_ID})
+project(${proj_name} ASM C)
+
 set(util_src
 utils/libc/vsnprintf.c
 utils/libc/syscalls.c
@@ -74,14 +78,6 @@ ${util_src}
 include(sdk_intf_lib.cmake)
 target_link_libraries(sdk_intf_lib PUBLIC c m)
 
-enable_language(C ASM)
-
-set(proj_name hello_${CHIP}_${CPU_ID})
-
-project(${proj_name} ASM C)
-
-set(BIN_FILE ${proj_name}.bin)
-
 add_executable(${proj_name}.elf main.c board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 
@@ -91,6 +87,7 @@ get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
 set_target_properties(${proj_name}.elf PROPERTIES LINK_FLAGS "-T${LINKER_SCRIPT_PROPERTY}")
 set_target_properties(${proj_name}.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT_PROPERTY})
 
+set(BIN_FILE ${proj_name}.bin)
 add_custom_command(TARGET ${proj_name}.elf POST_BUILD
 COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${proj_name}.elf> ${BIN_FILE}
 COMMENT "Generate ${BIN_FILE}\r\n"
