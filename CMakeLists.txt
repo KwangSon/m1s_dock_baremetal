@@ -63,23 +63,23 @@ target_link_options(sdk_intf_lib INTERFACE -march=${MARCH} -mabi=${MABI} -mtune=
 
 target_compile_definitions(sdk_intf_lib INTERFACE -DCONFIG_IRQ_NUM=80)
 add_subdirectory(drivers/lhal)
-add_subdirectory(drivers ${build_dir})
+add_subdirectory(drivers)
 
 set(proj_name hello_${CHIP}_${CPU_ID})
 
 project(${proj_name} ASM C)
 
-set(BIN_FILE ${build_dir}/${proj_name}.bin)
-set(MAP_FILE ${build_dir}/${proj_name}.map)
-set(ASM_FILE ${build_dir}/${proj_name}.asm)
+set(BIN_FILE ${proj_name}.bin)
+set(MAP_FILE ${proj_name}.map)
+set(ASM_FILE ${proj_name}.asm)
 
 add_executable(${proj_name}.elf main.c board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
-if(EXISTS ${LINKER_SCRIPT_PROPERTY})
-  set_target_properties(${proj_name}.elf PROPERTIES LINK_FLAGS "-T${LINKER_SCRIPT_PROPERTY} -Wl,-Map=${MAP_FILE}")
-  set_target_properties(${proj_name}.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT_PROPERTY})
-endif()
+
+set_target_properties(${proj_name}.elf PROPERTIES LINK_FLAGS "-T${LINKER_SCRIPT_PROPERTY} -Wl,-Map=${MAP_FILE}")
+set_target_properties(${proj_name}.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT_PROPERTY})
+
 
 get_property(SDK_LIBS_PROPERTY GLOBAL PROPERTY SDK_LIBS)
 target_link_libraries(${proj_name}.elf -Wl,--start-group ${SDK_LIBS_PROPERTY} -Wl,--end-group)
