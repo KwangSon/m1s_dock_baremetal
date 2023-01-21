@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
-enable_language(C ASM)
 set(proj_name hello_${CHIP}_${CPU_ID})
-project(${proj_name} ASM C)
+project(${proj_name} C ASM)
 
 set(util_src
 utils/libc/vsnprintf.c
