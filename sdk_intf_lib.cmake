@@ -35,3 +35,8 @@ target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch)
 target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch/risc-v/t-head)
 target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch/risc-v/t-head/Core/Include)
 target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/config/${CHIP})
+
+target_include_directories(sdk_intf_lib INTERFACE 
+drivers/soc/bl808/bl808_std/include
+drivers/soc/bl808/bl808_std/include/hardware
+)

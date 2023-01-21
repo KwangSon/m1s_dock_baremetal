@@ -7,19 +7,93 @@ target_link_libraries(sdk_intf_lib INTERFACE c m)
 
 enable_language(C ASM)
 
-add_library(utils STATIC
+set(util_src
 utils/libc/vsnprintf.c
 utils/libc/syscalls.c
 utils/libc/printf.c
 utils/mmheap/mmheap.c
 utils/soft_crc/soft_crc.c
 )
+
+add_library(utils STATIC
+${util_src}
+)
+
+set(lhal_src
+drivers/lhal/src/bflb_common.c
+drivers/lhal/src/bflb_adc.c
+drivers/lhal/src/bflb_dac.c
+drivers/lhal/src/bflb_dma.c
+drivers/lhal/src/bflb_emac.c
+drivers/lhal/src/bflb_gpio.c
+drivers/lhal/src/bflb_i2c.c
+drivers/lhal/src/bflb_ir.c
+drivers/lhal/src/bflb_uart.c
+drivers/lhal/src/bflb_spi.c
+drivers/lhal/src/bflb_rtc.c
+drivers/lhal/src/bflb_sec_aes.c
+drivers/lhal/src/bflb_sec_sha.c
+drivers/lhal/src/bflb_sec_trng.c
+drivers/lhal/src/bflb_timer.c
+drivers/lhal/src/bflb_wdg.c
+drivers/lhal/src/bflb_cks.c
+drivers/lhal/src/bflb_mjpeg.c
+drivers/lhal/src/bflb_ef_ctrl.c
+drivers/lhal/src/bflb_pwm_v2.c
+drivers/lhal/src/bflb_irq.c
+drivers/lhal/src/bflb_l1c.c
+drivers/lhal/src/bflb_mtimer.c
+drivers/lhal/include/arch/risc-v/t-head/rv_hart.c
+drivers/lhal/include/arch/risc-v/t-head/rv_pmp.c
+drivers/lhal/config/${CHIP}/device_table.c
+)
+add_library(lhal STATIC
+${lhal_src}
+)
+
+
+set(bl808_src
+drivers/soc/bl808/startup/${CPU_ID}/start.S
+drivers/soc/bl808/startup/${CPU_ID}/vector.S
+drivers/soc/bl808/startup/${CPU_ID}/riscv_fpu.S
+drivers/soc/bl808/startup/${CPU_ID}/start_load.c
+drivers/soc/bl808/startup/${CPU_ID}/system_bl808.c
+drivers/soc/bl808/startup/${CPU_ID}/interrupt.c
+drivers/soc/bl808/bl808_std/src/bl808_aon.c
+drivers/soc/bl808/bl808_std/src/bl808_clock.c
+drivers/soc/bl808/bl808_std/src/bl808_common.c
+drivers/soc/bl808/bl808_std/src/bl808_ef_cfg.c
+drivers/soc/bl808/bl808_std/src/bl808_glb.c
+drivers/soc/bl808/bl808_std/src/bl808_hbn.c
+drivers/soc/bl808/bl808_std/src/bl808_l1c.c
+drivers/soc/bl808/bl808_std/src/bl808_pds.c
+drivers/soc/bl808/bl808_std/src/bl808_sdh.c
+drivers/soc/bl808/bl808_std/src/bl808_tzc_sec.c
+drivers/soc/bl808/bl808_std/src/bl808_psram_uhs.c
+drivers/soc/bl808/bl808_std/src/bl808_uhs_phy.c
+drivers/soc/bl808/bl808_std/src/bl808_sf_cfg.c
+drivers/soc/bl808/bl808_std/src/bl808_sf_ctrl.c
+drivers/soc/bl808/bl808_std/src/bl808_sflash.c
+drivers/soc/bl808/bl808_std/src/bl808_xip_sflash.c
+drivers/soc/bl808/port/bl808_clock.c
+drivers/soc/bl808/port/bl808_flash.c
+drivers/soc/bl808/port/bl808_efuse.c
+)
+
+add_library(bl808 STATIC
+${bl808_src}
+)
+
+set_property(GLOBAL APPEND PROPERTY SDK_LIBS bl808)
+target_link_libraries(bl808 PUBLIC sdk_intf_lib)
+
+
 set_property(GLOBAL APPEND PROPERTY SDK_LIBS utils)
 target_link_libraries(utils PUBLIC sdk_intf_lib)
 
 
-add_subdirectory(drivers/lhal)
-add_subdirectory(drivers/soc/${CHIP})
+set_property(GLOBAL APPEND PROPERTY SDK_LIBS lhal)
+target_link_libraries(lhal PUBLIC sdk_intf_lib)
 
 set(proj_name hello_${CHIP}_${CPU_ID})
 
