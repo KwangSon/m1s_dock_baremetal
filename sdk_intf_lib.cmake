@@ -1,23 +1,22 @@
 if("${CPU_ID}" STREQUAL "m0")
-SET(MCPU "e907")
-SET(MARCH "rv32imafcpzpsfoperand_xtheade")
+SET(MARCH "rv32imafc_xtheade")
 SET(MABI "ilp32f")
-elseif("${CPU_ID}" STREQUAL "d0")
-SET(MCPU "c906")
-SET(MARCH "rv64imafdcv0p7_zfh_xtheadc")
-SET(MABI "lp64d")
-elseif("${CPU_ID}" STREQUAL "lp")
-SET(MCPU "e902")
-SET(MARCH "rv32emcxtheadse")
-SET(MABI "ilp32e")
+# elseif("${CPU_ID}" STREQUAL "d0")
+# SET(MCPU "c906")
+# SET(MARCH "rv64imafdcv0p7_zfh_xtheadc")
+# SET(MABI "lp64d")
+# elseif("${CPU_ID}" STREQUAL "lp")
+# SET(MCPU "e902")
+# SET(MARCH "rv32emcxtheadse")
+# SET(MABI "ilp32e")
 endif()
 
 
 target_link_options(sdk_intf_lib PUBLIC
--Wl,--gc-sections -march=${MARCH} -mabi=${MABI} -mtune=${MCPU}
+-Wl,--gc-sections -march=${MARCH} -mabi=${MABI}
 )
 
-target_compile_options(sdk_intf_lib PUBLIC -O2 -march=${MARCH} -mabi=${MABI} -mtune=${MCPU})
+target_compile_options(sdk_intf_lib PUBLIC -O2 -march=${MARCH} -mabi=${MABI})
 
 string(TOUPPER ${CHIP} CHIPNAME)
 target_compile_definitions(sdk_intf_lib PUBLIC -D${CHIPNAME})
