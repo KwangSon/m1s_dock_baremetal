@@ -1,51 +1,37 @@
 get_filename_component(library_name ${CMAKE_CURRENT_LIST_DIR} NAME)
 
-message(STATUS "[register library : ${library_name}], path:${CMAKE_CURRENT_LIST_DIR}")
+add_library(lhal STATIC
+src/bflb_common.c
+src/bflb_adc.c
+src/bflb_dac.c
+src/bflb_dma.c
+src/bflb_emac.c
+src/bflb_gpio.c
+src/bflb_i2c.c
+src/bflb_ir.c
+src/bflb_uart.c
+src/bflb_spi.c
+src/bflb_rtc.c
+src/bflb_sec_aes.c
+src/bflb_sec_sha.c
+src/bflb_sec_trng.c
+src/bflb_timer.c
+src/bflb_wdg.c
+src/bflb_cks.c
+src/bflb_mjpeg.c
+src/bflb_ef_ctrl.c
+src/bflb_pwm_v2.c
 
-set(CURRENT_STATIC_LIBRARY ${library_name})
-add_library(${library_name} STATIC)
+src/bflb_irq.c
+src/bflb_l1c.c
+src/bflb_mtimer.c
+
+include/arch/risc-v/t-head/rv_hart.c
+include/arch/risc-v/t-head/rv_pmp.c
+config/${CHIP}/device_table.c
+)
 set_property(GLOBAL APPEND PROPERTY SDK_LIBS ${library_name})
-target_link_libraries(${library_name} PUBLIC sdk_intf_lib)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_common.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_adc.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_dac.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_dma.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_emac.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_gpio.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_i2c.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_ir.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_uart.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_spi.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_rtc.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_sec_aes.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_sec_sha.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_sec_trng.c)
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_timer.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_wdg.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_cks.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_mjpeg.c)
-if("${CHIP}" STREQUAL "bl628")
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_clock.c)
-endif()
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_ef_ctrl.c)
-
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_pwm_v2.c)
-
-
-# optional
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_irq.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_l1c.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE src/bflb_mtimer.c)
+target_link_libraries(lhal PUBLIC sdk_intf_lib)
 
 target_include_directories(sdk_intf_lib INTERFACE include)
 target_include_directories(sdk_intf_lib INTERFACE include/arch)
@@ -53,11 +39,6 @@ target_include_directories(sdk_intf_lib INTERFACE include/arch/risc-v/t-head)
 target_include_directories(sdk_intf_lib INTERFACE include/arch/risc-v/t-head/Core/Include)
 target_include_directories(sdk_intf_lib INTERFACE config/${CHIP})
 
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE include/arch/risc-v/t-head/rv_hart.c)
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE include/arch/risc-v/t-head/rv_pmp.c)
-
-
-target_sources(${CURRENT_STATIC_LIBRARY} PRIVATE config/${CHIP}/device_table.c)
 
 string(TOUPPER ${CHIP} CHIPNAME)
 target_compile_definitions(sdk_intf_lib INTERFACE -D${CHIPNAME})
