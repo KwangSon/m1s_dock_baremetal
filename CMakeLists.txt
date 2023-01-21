@@ -28,6 +28,21 @@ target_link_libraries(utils PUBLIC sdk_intf_lib)
 target_include_directories(sdk_intf_lib INTERFACE utils/mmheap)
 target_include_directories(sdk_intf_lib INTERFACE utils/soft_crc)
 
+target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include)
+target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch)
+target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch/risc-v/t-head)
+target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/include/arch/risc-v/t-head/Core/Include)
+target_include_directories(sdk_intf_lib INTERFACE drivers/lhal/config/${CHIP})
+
+
+string(TOUPPER ${CHIP} CHIPNAME)
+target_compile_definitions(sdk_intf_lib INTERFACE -D${CHIPNAME})
+
+if(CPU_ID)
+string(TOUPPER ${CPU_ID} CPU_ID_NAME)
+target_compile_definitions(sdk_intf_lib INTERFACE -DCPU_${CPU_ID_NAME})
+endif()
+
 add_subdirectory(drivers/lhal)
 add_subdirectory(drivers ${build_dir})
 
