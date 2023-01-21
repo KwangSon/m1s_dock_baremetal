@@ -28,6 +28,7 @@ target_link_libraries(utils PUBLIC sdk_intf_lib)
 target_include_directories(sdk_intf_lib INTERFACE utils/mmheap)
 target_include_directories(sdk_intf_lib INTERFACE utils/soft_crc)
 
+add_subdirectory(drivers/lhal)
 add_subdirectory(drivers ${build_dir})
 
 set(proj_name hello_${CHIP}_${CPU_ID})
