@@ -5,7 +5,7 @@ set(build_dir build_out)
 add_library(sdk_intf_lib INTERFACE)
 
 target_link_options(sdk_intf_lib INTERFACE -Wl,--gc-sections)
-target_compile_definitions(sdk_intf_lib INTERFACE -DCONFIG_IRQ_NUM=80)
+
 target_link_libraries(sdk_intf_lib INTERFACE c m)
 
 target_compile_options(sdk_intf_lib INTERFACE -O2)
@@ -27,7 +27,7 @@ target_link_libraries(utils PUBLIC sdk_intf_lib)
 
 target_include_directories(sdk_intf_lib INTERFACE utils/mmheap)
 target_include_directories(sdk_intf_lib INTERFACE utils/soft_crc)
-add_subdirectory(drivers/lhal)
+
 add_subdirectory(drivers ${build_dir})
 
 set(proj_name hello_${CHIP}_${CPU_ID})
