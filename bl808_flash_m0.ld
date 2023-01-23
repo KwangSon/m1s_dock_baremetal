@@ -22,11 +22,19 @@ HeapMinSize  = 0x1000; /*  4KB */
 
 MEMORY
 {
+    /* FLASH */
     xip_memory  (rx)  : ORIGIN = 0x58000000, LENGTH = 32M
+    /* OCRAM cache */
     itcm_memory (rx)  : ORIGIN = 0x62020000, LENGTH = 20K
+    /* also OCRAM cache */
     dtcm_memory (rx)  : ORIGIN = 0x62025000, LENGTH = 4K
+
+    /* left of OCRAM non cache area */
     nocache_ram_memory (!rx) : ORIGIN = 0x22026000, LENGTH = 40K
+
+    /* WRAM cache */
     ram_memory  (!rx) : ORIGIN = 0x62030000, LENGTH = 160K + 64K - 20K - 4K - 40K
+    /* XRAM */
     xram_memory  (!rx) : ORIGIN = 0x40000000, LENGTH = 16K
 }
 
