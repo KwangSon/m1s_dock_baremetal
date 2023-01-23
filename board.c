@@ -10,7 +10,7 @@
 #include "bl808_tzc_sec.h"
 #include "bl808_ef_cfg.h"
 #include "bl808_uhs_phy.h"
-
+#include "drivers/lhal/include/hardware/uart_reg.h"
 #ifdef CONFIG_BSP_SDH_SDCARD
 #include "sdh_sdcard.h"
 #endif
@@ -233,6 +233,12 @@ void board_init(void)
 {
     uintptr_t flag;
 
+    console_init();
+    uint32_t reg_base = 0x2000a000;
+    while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
+    }
+    putreg8('g', reg_base + UART_FIFO_WDATA_OFFSET);
+
     flag = bflb_irq_save();
 
     bflb_flash_init();
@@ -256,7 +262,6 @@ void board_init(void)
         mmheap_init(&mmheap_root, system_mmheap);
     }
 
-    console_init();
 
     bl_show_log();
     bl_show_flashinfo();
