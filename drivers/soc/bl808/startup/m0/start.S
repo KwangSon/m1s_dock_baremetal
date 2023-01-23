@@ -11,6 +11,7 @@ __start:
 .option norelax
     la      gp, __global_pointer$
 .option pop
+    /* MIE enable - interrupt enable */
     csrci   mstatus, 8
 
     /* mtvec: for all exceptions and non-vector mode IRQs */
@@ -48,7 +49,7 @@ __start:
 
     jal     System_Post_Init
 
-    jal     main
+    jal     board_init
 
     .size   __start, . - __start
 

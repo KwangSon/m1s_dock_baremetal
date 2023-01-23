@@ -77,7 +77,7 @@ ${util_src}
 include(sdk_intf_lib.cmake)
 target_link_libraries(sdk_intf_lib PUBLIC c m)
 
-add_executable(${proj_name}.elf main.c board.c)
+add_executable(${proj_name}.elf board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
 
 set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/bl808_flash_${CPU_ID}.ld)
