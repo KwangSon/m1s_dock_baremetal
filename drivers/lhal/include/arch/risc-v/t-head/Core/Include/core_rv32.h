@@ -1066,10 +1066,10 @@ __STATIC_INLINE void csi_icache_enable(void)
     uint32_t cache;
     __DSB();
     __ISB();
-    __ICACHE_IALL();
-    cache = __get_MHCR();
-    cache |= CACHE_MHCR_IE_Msk;
-    __set_MHCR(cache);
+    // __ICACHE_IALL();
+    // cache = __get_MHCR();
+    // cache |= CACHE_MHCR_IE_Msk;
+    // __set_MHCR(cache);
     __DSB();
     __ISB();
 #endif
@@ -1120,10 +1120,10 @@ __STATIC_INLINE void csi_dcache_enable(void)
     uint32_t cache;
     __DSB();
     __ISB();
-    __DCACHE_IALL(); /* invalidate all dcache */
-    cache = __get_MHCR();
-    cache |= (CACHE_MHCR_DE_Msk | CACHE_MHCR_WB_Msk | CACHE_MHCR_WA_Msk | CACHE_MHCR_RS_Msk | CACHE_MHCR_BPE_Msk | CACHE_MHCR_L0BTB_Msk); /* enable all Cache */
-    __set_MHCR(cache);
+    // __DCACHE_IALL(); /* invalidate all dcache */
+    // cache = __get_MHCR();
+    // cache |= (CACHE_MHCR_DE_Msk | CACHE_MHCR_WB_Msk | CACHE_MHCR_WA_Msk | CACHE_MHCR_RS_Msk | CACHE_MHCR_BPE_Msk | CACHE_MHCR_L0BTB_Msk); /* enable all Cache */
+    // __set_MHCR(cache);
 
     __DSB();
     __ISB();

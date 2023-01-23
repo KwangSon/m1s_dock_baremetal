@@ -68,11 +68,11 @@ void SystemInit(void)
     __set_MSTATUS(mstatus);
 
     /* enable mxstatus THEADISAEE */
-    uint32_t mxstatus = __get_MXSTATUS();
-    mxstatus |= (1 << 22);
-    /* enable mxstatus MM */
-    mxstatus |= (1 << 15);
-    __set_MXSTATUS(mxstatus);
+    // uint32_t mxstatus = __get_MXSTATUS();
+    // mxstatus |= (1 << 22);
+    // /* enable mxstatus MM */
+    // mxstatus |= (1 << 15);
+    // __set_MXSTATUS(mxstatus);
 
     /* get interrupt level from info */
     CLIC->CLICCFG = (((CLIC->CLICINFO & CLIC_INFO_CLICINTCTLBITS_Msk) >> CLIC_INFO_CLICINTCTLBITS_Pos) << CLIC_CLICCFG_NLBIT_Pos);
@@ -91,13 +91,13 @@ void SystemInit(void)
     csi_dcache_enable();
     csi_icache_enable();
 
-    /* enable preload $ AMR for D$ */
-    __set_MHINT(0x000c);
+    // /* enable preload $ AMR for D$ */
+    // __set_MHINT(0x000c);
 
     /* disable mexstatus SPUSHEN and SPSWAPEN for ipush/ipop*/
-    uint32_t mexstatus = __get_MEXSTATUS();
-    mexstatus &= ~(0x3 << 16);
-    __set_MEXSTATUS(mexstatus);
+    // uint32_t mexstatus = __get_MEXSTATUS();
+    // mexstatus &= ~(0x3 << 16);
+    // __set_MEXSTATUS(mexstatus);
 
     GLB_UART_Sig_Swap_Set(GLB_UART_SIG_SWAP_GRP_GPIO0_GPIO11, 0);
     GLB_UART_Sig_Swap_Set(GLB_UART_SIG_SWAP_GRP_GPIO12_GPIO23, 0);
