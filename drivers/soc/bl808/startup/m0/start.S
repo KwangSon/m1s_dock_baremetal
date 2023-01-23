@@ -21,7 +21,7 @@ __start:
 
     /* mtvt: for all vector mode IRQs */
     la      a0, __Vectors
-    csrw    mtvt, a0
+    /* csrw    mtvt, a0 */
 
 #if defined(__riscv_flen)
     /* FP: initial state */

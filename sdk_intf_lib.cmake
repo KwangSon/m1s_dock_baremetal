@@ -1,5 +1,5 @@
 if("${CPU_ID}" STREQUAL "m0")
-SET(MARCH "rv32imafc_xtheade")
+SET(MARCH "rv32imafc")
 SET(MABI "ilp32f")
 # elseif("${CPU_ID}" STREQUAL "d0")
 # SET(MCPU "c906")

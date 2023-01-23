@@ -182,8 +182,8 @@ __ALWAYS_STATIC_INLINE uint32_t __get_MHCR(void)
 {
     uint32_t result;
 
-    __ASM volatile("csrr %0, mhcr"
-                   : "=r"(result));
+    // __ASM volatile("csrr %0, mhcr"
+    //                : "=r"(result));
     return (result);
 }
 
@@ -1271,7 +1271,7 @@ __ALWAYS_STATIC_INLINE void __DSB(void)
  */
 __ALWAYS_STATIC_INLINE void __ICACHE_IALL(void)
 {
-    __ASM volatile("icache.iall");
+    // __ASM volatile("icache.iall");
 }
 
 /**
@@ -1281,9 +1281,9 @@ __ALWAYS_STATIC_INLINE void __ICACHE_IALL(void)
  */
 __ALWAYS_STATIC_INLINE void __ICACHE_IPA(uint32_t addr)
 {
-    __ASM volatile("icache.ipa %0"
-                   :
-                   : "r"(addr));
+    // __ASM volatile("icache.ipa %0"
+    //                :
+    //                : "r"(addr));
 }
 
 /**
@@ -1292,7 +1292,7 @@ __ALWAYS_STATIC_INLINE void __ICACHE_IPA(uint32_t addr)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_IALL(void)
 {
-    __ASM volatile("dcache.iall");
+    // __ASM volatile("dcache.iall");
 }
 
 /**
@@ -1301,7 +1301,7 @@ __ALWAYS_STATIC_INLINE void __DCACHE_IALL(void)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_CALL(void)
 {
-    __ASM volatile("dcache.call");
+    // __ASM volatile("dcache.call");
 }
 
 /**
@@ -1310,7 +1310,7 @@ __ALWAYS_STATIC_INLINE void __DCACHE_CALL(void)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_CIALL(void)
 {
-    __ASM volatile("dcache.ciall");
+    // __ASM volatile("dcache.ciall");
 }
 
 /**
@@ -1320,9 +1320,9 @@ __ALWAYS_STATIC_INLINE void __DCACHE_CIALL(void)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_IPA(uint32_t addr)
 {
-    __ASM volatile("dcache.ipa %0"
-                   :
-                   : "r"(addr));
+    // __ASM volatile("dcache.ipa %0"
+    //                :
+    //                : "r"(addr));
 }
 
 /**
@@ -1332,9 +1332,9 @@ __ALWAYS_STATIC_INLINE void __DCACHE_IPA(uint32_t addr)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_CPA(uint32_t addr)
 {
-    __ASM volatile("dcache.cpa %0"
-                   :
-                   : "r"(addr));
+    // __ASM volatile("dcache.cpa %0"
+    //                :
+    //                : "r"(addr));
 }
 
 /**
@@ -1344,9 +1344,9 @@ __ALWAYS_STATIC_INLINE void __DCACHE_CPA(uint32_t addr)
  */
 __ALWAYS_STATIC_INLINE void __DCACHE_CIPA(uint32_t addr)
 {
-    __ASM volatile("dcache.cipa %0"
-                   :
-                   : "r"(addr));
+    // __ASM volatile("dcache.cipa %0"
+    //                :
+    //                : "r"(addr));
 }
 
 /**
