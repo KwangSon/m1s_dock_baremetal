@@ -10,7 +10,6 @@
 #include "bl808_tzc_sec.h"
 #include "bl808_ef_cfg.h"
 #include "bl808_uhs_phy.h"
-#include "board.h"
 
 #ifdef CONFIG_BSP_SDH_SDCARD
 #include "sdh_sdcard.h"
