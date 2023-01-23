@@ -244,8 +244,8 @@ void board_init(void)
     peripheral_clock_init();
     bflb_irq_initialize();
 
-    GLB_Release_CPU(GLB_CORE_ID_D0);
-    GLB_Release_CPU(GLB_CORE_ID_LP);
+    // GLB_Release_CPU(GLB_CORE_ID_D0);
+    // GLB_Release_CPU(GLB_CORE_ID_LP);
 
     bflb_irq_restore(flag);
 
@@ -281,6 +281,7 @@ void board_init(void)
     // BL_WR_WORD(IPC_SYNC_ADDR2, IPC_SYNC_FLAG);
     // L1C_DCache_Clean_By_Addr(IPC_SYNC_ADDR1, 8);
     board_jtag_gpio_init();
+    GLB_Halt_CPU(GLB_CORE_ID_M0);
 
 }
 #elif defined(CPU_D0)

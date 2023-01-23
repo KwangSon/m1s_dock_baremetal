@@ -23,17 +23,6 @@ __start:
     la      a0, __Vectors
     /* csrw    mtvt, a0 */
 
-#if defined(__riscv_flen)
-    /* FP: initial state */
-    csrr    t0, mstatus
-    li      t1, ~0x6000
-    and     t0, t0, t1
-    li      t1, 0x2000
-    or      t0, t0, t1
-    csrw    mstatus, t0
-    /* csrwi   fcsr, 0 */
-#endif
-
     .weak __StackTop
     la      sp, __StackTop
     csrw    mscratch, sp
@@ -46,8 +35,6 @@ __start:
 
     /* start load code to itcm like. */
     jal     start_load
-
-    jal     System_Post_Init
 
     jal     board_init
 
