@@ -75,7 +75,6 @@ ${util_src}
 )
 
 include(sdk_intf_lib.cmake)
-target_link_libraries(sdk_intf_lib PUBLIC c m)
 
 add_executable(${proj_name}.elf board.c)
 target_link_libraries(${proj_name}.elf sdk_intf_lib)
