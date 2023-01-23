@@ -116,7 +116,7 @@ void System_Post_Init(void)
 
     PDS_Power_On_MM_System();
     /* make D0 all ram avalable for mcu usage */
-    GLB_Set_DSP_L2SRAM_Available_Size(3, 1, 1, 1);
+    // GLB_Set_DSP_L2SRAM_Available_Size(3, 1, 1, 1);
 
     /* global IRQ enable */
     __enable_irq();

@@ -266,9 +266,11 @@ void board_init(void)
     }
 #endif
     /* release d0 and then do can run */
-    BL_WR_WORD(IPC_SYNC_ADDR1, IPC_SYNC_FLAG);
-    BL_WR_WORD(IPC_SYNC_ADDR2, IPC_SYNC_FLAG);
-    L1C_DCache_Clean_By_Addr(IPC_SYNC_ADDR1, 8);
+    // BL_WR_WORD(IPC_SYNC_ADDR1, IPC_SYNC_FLAG);
+    // BL_WR_WORD(IPC_SYNC_ADDR2, IPC_SYNC_FLAG);
+    // L1C_DCache_Clean_By_Addr(IPC_SYNC_ADDR1, 8);
+    board_jtag_gpio_init();
+
 }
 #elif defined(CPU_D0)
 void board_init(void)
@@ -331,6 +333,17 @@ void board_spi0_gpio_init(void)
     bflb_gpio_init(gpio, GPIO_PIN_18, GPIO_FUNC_SPI0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
     /* spi clk */
     bflb_gpio_init(gpio, GPIO_PIN_19, GPIO_FUNC_SPI0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
+}
+
+void board_jtag_gpio_init(void)
+{
+    struct bflb_device_s *gpio;
+
+    gpio = bflb_device_get_by_name("gpio");
+    bflb_gpio_init(gpio, GPIO_PIN_0, GPIO_FUNC_JTAG_D0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
+    bflb_gpio_init(gpio, GPIO_PIN_1, GPIO_FUNC_JTAG_D0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
+    bflb_gpio_init(gpio, GPIO_PIN_2, GPIO_FUNC_JTAG_D0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
+    bflb_gpio_init(gpio, GPIO_PIN_3, GPIO_FUNC_JTAG_D0 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
 }
 
 void board_pwm_gpio_init(void)
