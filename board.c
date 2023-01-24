@@ -202,12 +202,18 @@ extern void bflb_uart_set_console(struct bflb_device_s *dev);
 
 void console_init()
 {
-    struct bflb_device_s *gpio;
+    struct bflb_device_s gpio =     { .name = "gpio",
+      .reg_base = GLB_BASE,
+      .irq_num = 60,
+      .idx = 0,
+      .sub_idx = 0,
+      .dev_type = BFLB_DEVICE_TYPE_GPIO,
+      .user_data = NULL };
 
-    gpio = bflb_device_get_by_name("gpio");
+    // gpio = bflb_device_get_by_name("gpio");
 #if defined(CPU_M0)
-    bflb_gpio_uart_init(gpio, GPIO_PIN_14, GPIO_UART_FUNC_UART0_TX);
-    bflb_gpio_uart_init(gpio, GPIO_PIN_15, GPIO_UART_FUNC_UART0_RX);
+    bflb_gpio_uart_init(&gpio, GPIO_PIN_14, GPIO_UART_FUNC_UART0_TX);
+    bflb_gpio_uart_init(&gpio, GPIO_PIN_15, GPIO_UART_FUNC_UART0_RX);
 #elif defined(CPU_D0)
     bflb_gpio_init(gpio, GPIO_PIN_8, 21 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
     //bflb_gpio_init(gpio, GPIO_PIN_9, 21 | GPIO_ALTERNATE | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
