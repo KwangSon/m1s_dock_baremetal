@@ -89,8 +89,17 @@ void SystemInit(void)
     /* tspend use positive interrupt */
     CLIC->CLICINT[MSOFT_IRQn].ATTR = 0x3;
 
-    csi_dcache_enable();
-    csi_icache_enable();
+    __ASM volatile("fence");
+    __ASM volatile("fence.i");
+
+    __ASM volatile("fence");
+    __ASM volatile("fence.i");
+
+    __ASM volatile("fence");
+    __ASM volatile("fence.i");
+
+    __ASM volatile("fence");
+    __ASM volatile("fence.i");
 
     // /* enable preload $ AMR for D$ */
     // __set_MHINT(0x000c);
