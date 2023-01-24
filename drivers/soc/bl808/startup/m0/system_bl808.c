@@ -105,8 +105,8 @@ void SystemInit(void)
     GLB_UART_Sig_Swap_Set(GLB_UART_SIG_SWAP_GRP_GPIO24_GPIO35, 0);
     GLB_UART_Sig_Swap_Set(GLB_UART_SIG_SWAP_GRP_GPIO36_GPIO45, 0);
 
-    BL_WR_REG(GLB_BASE, GLB_UART_CFG1, 0xffffffff);
-    BL_WR_REG(GLB_BASE, GLB_UART_CFG2, 0x0000ffff);
+    // BL_WR_REG(GLB_BASE, GLB_UART_CFG1, 0xffffffff);
+    // BL_WR_REG(GLB_BASE, GLB_UART_CFG2, 0x0000ffff);
 
     GLB_Set_EM_Sel(GLB_WRAM160KB_EM0KB);
     // console_init();
