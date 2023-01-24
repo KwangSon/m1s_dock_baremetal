@@ -108,7 +108,7 @@ void SystemInit(void)
     // BL_WR_REG(GLB_BASE, GLB_UART_CFG1, 0xffffffff);
     // BL_WR_REG(GLB_BASE, GLB_UART_CFG2, 0x0000ffff);
 
-    GLB_Set_EM_Sel(GLB_WRAM160KB_EM0KB);
+    // GLB_Set_EM_Sel(GLB_WRAM160KB_EM0KB);
     // console_init();
     // uint32_t reg_base = 0x2000a000;
     // int mm;
