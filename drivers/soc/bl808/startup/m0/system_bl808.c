@@ -4,6 +4,7 @@
 #include "rv_hart.h"
 #include "rv_pmp.h"
 #include "../../../../lhal/include/hardware/uart_reg.h"
+#include "../../../../../board.h"
 static void Tzc_Sec_PSRAMA_Access_Set_Not_Lock(uint8_t region, uint32_t startAddr, uint32_t endAddr, uint8_t group)
 {
     uint32_t tmpVal = 0;

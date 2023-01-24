@@ -11,6 +11,7 @@
 #include "bl808_ef_cfg.h"
 #include "bl808_uhs_phy.h"
 #include "drivers/lhal/include/hardware/uart_reg.h"
+#include "board.h"
 #ifdef CONFIG_BSP_SDH_SDCARD
 #include "sdh_sdcard.h"
 #endif
@@ -199,7 +200,7 @@ void bl_show_flashinfo(void)
 
 extern void bflb_uart_set_console(struct bflb_device_s *dev);
 
-static void console_init()
+void console_init()
 {
     struct bflb_device_s *gpio;
 
