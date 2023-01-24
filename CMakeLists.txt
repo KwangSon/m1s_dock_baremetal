@@ -68,16 +68,44 @@ drivers/soc/bl808/port/bl808_flash.c
 drivers/soc/bl808/port/bl808_efuse.c
 )
 
-add_library(sdk_intf_lib STATIC
+add_executable(${proj_name}.elf board.c
 ${bl808_src}
 ${lhal_src}
 ${util_src}
 )
 
-include(sdk_intf_lib.cmake)
+if("${CPU_ID}" STREQUAL "m0")
+SET(MARCH "rv32imafc")
+SET(MABI "ilp32f")
+endif()
 
-add_executable(${proj_name}.elf board.c)
-target_link_libraries(${proj_name}.elf sdk_intf_lib)
+target_link_options(${proj_name}.elf PUBLIC
+-Wl,--gc-sections -march=${MARCH} -mabi=${MABI}
+)
+
+target_compile_options(${proj_name}.elf PUBLIC -O2 -march=${MARCH} -mabi=${MABI})
+
+string(TOUPPER ${CHIP} CHIPNAME)
+target_compile_definitions(${proj_name}.elf PUBLIC -D${CHIPNAME})
+if(CPU_ID)
+string(TOUPPER ${CPU_ID} CPU_ID_NAME)
+target_compile_definitions(${proj_name}.elf PUBLIC -DCPU_${CPU_ID_NAME})
+endif()
+target_compile_definitions(${proj_name}.elf PUBLIC -DARCH_RISCV -DBFLB_USE_HAL_DRIVER)
+target_compile_definitions(${proj_name}.elf PUBLIC -DCONFIG_IRQ_NUM=80)
+
+target_include_directories(${proj_name}.elf PUBLIC utils/mmheap)
+target_include_directories(${proj_name}.elf PUBLIC utils/soft_crc)
+target_include_directories(${proj_name}.elf PUBLIC drivers/lhal/include)
+target_include_directories(${proj_name}.elf PUBLIC drivers/lhal/include/arch)
+target_include_directories(${proj_name}.elf PUBLIC drivers/lhal/include/arch/risc-v/t-head)
+target_include_directories(${proj_name}.elf PUBLIC drivers/lhal/include/arch/risc-v/t-head/Core/Include)
+target_include_directories(${proj_name}.elf PUBLIC drivers/lhal/config/${CHIP})
+
+target_include_directories(${proj_name}.elf PUBLIC 
+drivers/soc/bl808/bl808_std/include
+drivers/soc/bl808/bl808_std/include/hardware
+)
 
 set_property(GLOBAL PROPERTY LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/bl808_flash_${CPU_ID}.ld)
 get_property(LINKER_SCRIPT_PROPERTY GLOBAL PROPERTY LINKER_SCRIPT)
