@@ -3,7 +3,7 @@
 #include "tzc_sec_reg.h"
 #include "rv_hart.h"
 #include "rv_pmp.h"
-
+#include "../../../../lhal/include/hardware/uart_reg.h"
 static void Tzc_Sec_PSRAMA_Access_Set_Not_Lock(uint8_t region, uint32_t startAddr, uint32_t endAddr, uint8_t group)
 {
     uint32_t tmpVal = 0;
@@ -108,6 +108,11 @@ void SystemInit(void)
     BL_WR_REG(GLB_BASE, GLB_UART_CFG2, 0x0000ffff);
 
     GLB_Set_EM_Sel(GLB_WRAM160KB_EM0KB);
+    // console_init();
+    // uint32_t reg_base = 0x2000a000;
+    // while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
+    // }
+    // putreg8('g', reg_base + UART_FIFO_WDATA_OFFSET);
 }
 
 void System_Post_Init(void)

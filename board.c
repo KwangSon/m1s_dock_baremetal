@@ -239,21 +239,21 @@ void board_init(void)
     }
     putreg8('g', reg_base + UART_FIFO_WDATA_OFFSET);
 
-    flag = bflb_irq_save();
+    // flag = bflb_irq_save();
 
-    bflb_flash_init();
+    // bflb_flash_init();
 
     GLB_Halt_CPU(GLB_CORE_ID_D0);
     GLB_Halt_CPU(GLB_CORE_ID_LP);
 
-    system_clock_init();
-    peripheral_clock_init();
-    bflb_irq_initialize();
+    // system_clock_init();
+    // peripheral_clock_init();
+    // bflb_irq_initialize();
 
     // GLB_Release_CPU(GLB_CORE_ID_D0);
     // GLB_Release_CPU(GLB_CORE_ID_LP);
 
-    bflb_irq_restore(flag);
+    // bflb_irq_restore(flag);
 
     system_mmheap[0].addr = (uint8_t *)&__HeapBase;
     system_mmheap[0].mem_size = ((size_t)&__HeapLimit - (size_t)&__HeapBase);
@@ -264,29 +264,29 @@ void board_init(void)
 
 
     bl_show_log();
-    bl_show_flashinfo();
+    // bl_show_flashinfo();
 
-    printf("dynamic memory init success,heap size = %d Kbyte \r\n", system_mmheap[0].mem_size / 1024);
+//     printf("dynamic memory init success,heap size = %d Kbyte \r\n", system_mmheap[0].mem_size / 1024);
 
-    printf("sig1:%08x\r\n", BL_RD_REG(GLB_BASE, GLB_UART_CFG1));
-    printf("sig2:%08x\r\n", BL_RD_REG(GLB_BASE, GLB_UART_CFG2));
+//     printf("sig1:%08x\r\n", BL_RD_REG(GLB_BASE, GLB_UART_CFG1));
+//     printf("sig2:%08x\r\n", BL_RD_REG(GLB_BASE, GLB_UART_CFG2));
 
-#if (defined(CONFIG_LUA) || defined(CONFIG_BFLOG) || defined(CONFIG_FATFS))
-    rtc = bflb_device_get_by_name("rtc");
-#endif
+// #if (defined(CONFIG_LUA) || defined(CONFIG_BFLOG) || defined(CONFIG_FATFS))
+//     rtc = bflb_device_get_by_name("rtc");
+// #endif
 
-#ifdef CONFIG_PSRAM
-    if (uhs_psram_init() < 0) {
-        while (1) {
-        }
-    }
-#endif
+// #ifdef CONFIG_PSRAM
+//     if (uhs_psram_init() < 0) {
+//         while (1) {
+//         }
+//     }
+// #endif
     /* release d0 and then do can run */
     // BL_WR_WORD(IPC_SYNC_ADDR1, IPC_SYNC_FLAG);
     // BL_WR_WORD(IPC_SYNC_ADDR2, IPC_SYNC_FLAG);
     // L1C_DCache_Clean_By_Addr(IPC_SYNC_ADDR1, 8);
-    board_jtag_gpio_init();
-    GLB_Halt_CPU(GLB_CORE_ID_M0);
+    // board_jtag_gpio_init();
+    // GLB_Halt_CPU(GLB_CORE_ID_M0);
 
 }
 #elif defined(CPU_D0)
