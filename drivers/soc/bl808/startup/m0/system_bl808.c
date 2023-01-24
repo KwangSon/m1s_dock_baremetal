@@ -111,9 +111,18 @@ void SystemInit(void)
     GLB_Set_EM_Sel(GLB_WRAM160KB_EM0KB);
     // console_init();
     // uint32_t reg_base = 0x2000a000;
+    // int mm;
+    // for (mm = 0; mm < 2; mm++)
+    // {
+        
     // while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
     // }
     // putreg8('g', reg_base + UART_FIFO_WDATA_OFFSET);
+
+    // while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
+    // }
+    // putreg8('\n', reg_base + UART_FIFO_WDATA_OFFSET);
+    // }
 }
 
 void System_Post_Init(void)

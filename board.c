@@ -236,9 +236,19 @@ void board_init(void)
 
     console_init();
     uint32_t reg_base = 0x2000a000;
+    int mm;
+    for (mm = 0; mm < 2; mm++)
+    {
+        
     while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
     }
     putreg8('g', reg_base + UART_FIFO_WDATA_OFFSET);
+
+    while ((getreg32(reg_base + UART_FIFO_CONFIG_1_OFFSET) & UART_TX_FIFO_CNT_MASK) == 0) {
+    }
+    putreg8('\n', reg_base + UART_FIFO_WDATA_OFFSET);
+    }
+    
 
     // flag = bflb_irq_save();
 
@@ -256,15 +266,16 @@ void board_init(void)
 
     // bflb_irq_restore(flag);
 
-    system_mmheap[0].addr = (uint8_t *)&__HeapBase;
-    system_mmheap[0].mem_size = ((size_t)&__HeapLimit - (size_t)&__HeapBase);
+    // system_mmheap[0].addr = (uint8_t *)&__HeapBase;
+    // system_mmheap[0].mem_size = ((size_t)&__HeapLimit - (size_t)&__HeapBase);
 
-    if (system_mmheap[0].mem_size > 0) {
-        mmheap_init(&mmheap_root, system_mmheap);
-    }
+    // if (system_mmheap[0].mem_size > 0) {
+    //     mmheap_init(&mmheap_root, system_mmheap);
+    // }
+    // printf("\n");
 
 
-    bl_show_log();
+    // bl_show_log();
     // bl_show_flashinfo();
 
 //     printf("dynamic memory init success,heap size = %d Kbyte \r\n", system_mmheap[0].mem_size / 1024);
