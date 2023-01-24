@@ -51,39 +51,8 @@ SECTIONS
         *(.text)
         *(.text.*)
 
-        /* section information for shell */
-        . = ALIGN(4);
-        __fsymtab_start = .;
-        KEEP(*(FSymTab))
-        __fsymtab_end = .;
-
-        . = ALIGN(4);
-        __vsymtab_start = .;
-        KEEP(*(VSymTab))
-        __vsymtab_end = .;
-
-        /* section information for usb usbh_class_info */
-        . = ALIGN(4);
-        __usbh_class_info_start__ = .;
-        KEEP(*(.usbh_class_info))
-        . = ALIGN(4);
-        __usbh_class_info_end__ = .;
-
         /*put .rodata**/
-        *(EXCLUDE_FILE( *bl808_glb*.o* \
-                        *bl808_glb_gpio*.o* \
-                        *bl808_pds*.o* \
-                        *bl808_aon*.o* \
-                        *bl808_hbn*.o* \
-                        *bl808_l1c*.o* \
-                        *bl808_common*.o* \
-                        *bl808_clock*.o* \
-                        *bl808_ef_ctrl*.o* \
-                        *bl808_sf_cfg*.o* \
-                        *bl808_sf_ctrl*.o* \
-                        *bl808_sflash*.o* \
-                        *bl808_xip_sflash*.o* \
-                        *bl808_romapi_patch*.o* ) .rodata*)
+        *(.rodata*)
         *(.srodata)
         *(.srodata.*)
 
@@ -103,21 +72,6 @@ SECTIONS
         *(.tcm_const.*)
         *(.sclock_rlt_code.*)
         *(.sclock_rlt_const.*)
-
-        *bl808_glb*.o*(.rodata*)
-        *bl808_glb_gpio*.o*(.rodata*)
-        *bl808_pds*.o*(.rodata*)
-        *bl808_aon*.o*(.rodata*)
-        *bl808_hbn*.o*(.rodata*)
-        *bl808_l1c*.o*(.rodata*)
-        *bl808_common*.o*(.rodata*)
-        *bl808_clock*.o*(.rodata*)
-        *bl808_ef_ctrl*.o*(.rodata*)
-        *bl808_sf_cfg*.o*(.rodata*)
-        *bl808_sf_ctrl*.o*(.rodata*)
-        *bl808_sflash*.o*(.rodata*)
-        *bl808_xip_sflash*.o*(.rodata*)
-        *bl808_romapi_patch*.o*(.rodata*)
 
         . = ALIGN(4);
         __tcm_code_end__ = .;

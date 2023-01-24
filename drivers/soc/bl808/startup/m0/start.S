@@ -20,7 +20,7 @@ __start:
     csrw    mtvec, a0
 
     /* mtvt: for all vector mode IRQs */
-    la      a0, __Vectors
+    /* la      a0, __Vectors */
     /* csrw    mtvt, a0 */
 
     .weak __StackTop
