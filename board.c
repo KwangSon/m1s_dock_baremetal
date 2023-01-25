@@ -254,6 +254,21 @@ void board_init(void)
     }
     putreg8('\n', reg_base + UART_FIFO_WDATA_OFFSET);
     }
+
+    struct bflb_device_s *gpio;
+       uint32_t gpioCfgAddress;
+    uint32_t tmpVal;
+    gpio = bflb_device_get_by_name("gpio");
+    bflb_gpio_init(gpio, GPIO_PIN_8, GPIO_FUNC_JTAG_M0 | GPIO_OUTPUT | GPIO_PULLUP | GPIO_SMT_EN | GPIO_DRV_1);
+    // GLB_GPIO_Write(8, 1);
+    gpioCfgAddress = GLB_BASE + GLB_GPIO_CFG0_OFFSET + (8 << 2);
+    tmpVal = BL_RD_WORD(gpioCfgAddress);
+
+        tmpVal = BL_SET_REG_BIT(tmpVal, GLB_REG_GPIO_0_O);
+
+
+    BL_WR_WORD(gpioCfgAddress, tmpVal);
+
     
 
     // flag = bflb_irq_save();
